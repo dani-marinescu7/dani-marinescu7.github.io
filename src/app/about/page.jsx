@@ -3,6 +3,8 @@ import Brain from "@/components/brain";
 import { motion, useInView, useScroll } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import bioImage from "../../../public/bio.jpeg";
 
 const AboutPage = () => {
@@ -16,9 +18,20 @@ const AboutPage = () => {
     const experienceRef = useRef();
     const isExperienceRefInView = useInView(experienceRef, { margin: "-100px" });
 
-    const theSideline = () => {
-        window.location.href = 'https://github.com/dani-marinescu7/the-sideline';
-    }
+    const buttonClick = (buttonType) => {
+        if (buttonType === 'theSidelineCode') {
+            window.open('https://github.com/dani-marinescu7/the-sideline', '_blank');
+        } else if (buttonType === 'theSidelineLive' || buttonType === 'onlineShopLive') {
+            toast("Not live yet.");
+        } else if (buttonType === 'portofolioCode') {
+            window.open('https://github.com/dani-marinescu7/portofolio-website', '_blank');
+        } else if (buttonType === 'portofolioLive') {
+            window.location.href = '/';
+        } else if (buttonType === 'onlineShopCode') {
+            window.open('https://github.com/dani-marinescu7/online-shop', '_blank');
+        }
+    };
+
     return (
         <motion.div
             className="h-full"
@@ -28,10 +41,11 @@ const AboutPage = () => {
         >
             {/* CONTAINER */}
             <div className="h-full overflow-scroll lg:flex" ref={containerRef}>
+                <ToastContainer />
                 {/* TEXT CONTAINER */}
                 <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3 lg:pr-0 xl:w-1/2">
                     {/* BIOGRAPHY CONTAINER */}
-                    <div className="flex flex-col gap-12 justify-center">
+                    <div className="flex flex-col gap-12 justify-center min-w-[600px] lg:ml-[-100px]">
                         {/* BIOGRAPHY IMAGE */}
                         <Image
                             src={bioImage}
@@ -79,7 +93,7 @@ const AboutPage = () => {
                         </motion.svg>
                     </div>
                     {/* SKILLS CONTAINER */}
-                    <div className="flex flex-col gap-12 justify-center" ref={skillRef}>
+                    <div className="flex flex-col gap-8 justify-center min-w-[600px] lg:ml-[-100px]" ref={skillRef}>
                         {/* SKILL TITLE */}
                         <motion.h1
                             initial={{ x: "-300px" }}
@@ -164,7 +178,7 @@ const AboutPage = () => {
                     </div>
                     {/* EXPERIENCE CONTAINER */}
                     <div
-                        className="flex flex-col gap-12 justify-center pb-48"
+                        className="flex flex-col gap-12 justify-center pb-48 min-w-[600px] lg:ml-[-100px]"
                         ref={experienceRef}
                     >
                         {/* EXPERIENCE TITLE */}
@@ -183,7 +197,7 @@ const AboutPage = () => {
                             className=""
                         >
                             {/* EXPERIENCE LIST ITEM */}
-                            <div className="flex justify-between h-48">
+                            <div className="flex justify-between h-58">
                                 {/* LEFT */}
                                 <div className="w-1/3 ">
                                     {/* PROJECT TITLE */}
@@ -192,13 +206,22 @@ const AboutPage = () => {
                                     </div>
                                     {/* PROJECT DESCRIPTION */}
                                     <div className="p-3 text-sm italic">
-                                        Small social media platform for football fans
-                                        using MERN stack.{" "}
+                                        Built a dynamic social media app catering to football enthusiasts,
+                                        utilizing the MERN stack. This compact application integrates seamlessly with APIs,
+                                        offering quick updates on news and standings,
+                                        showcasing my knack for creating user-centric solutions.{" "}
                                     </div>
-                                    {/* CODE */}
-                                    <button onClick={theSideline} className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                                        Code
-                                    </button>
+                                    {/* BUTTONS */}
+                                    <div className="flex justify-between space-x-8">
+                                        {/* CODE */}
+                                        <button onClick={() => buttonClick('theSidelineCode')} className="p-1 rounded bg-white text-sm font-semibold flex-grow">
+                                            Code
+                                        </button>
+                                        {/* LIVE */}
+                                        <button onClick={() => buttonClick('theSidelineLive')} className="p-1 rounded bg-white text-sm font-semibold flex-grow">
+                                            Live
+                                        </button>
+                                    </div>
                                 </div>
                                 {/* CENTER */}
                                 <div className="w-1/6 flex justify-center">
@@ -212,7 +235,7 @@ const AboutPage = () => {
                                 <div className="w-1/3 "></div>
                             </div>
                             {/* EXPERIENCE LIST ITEM */}
-                            <div className="flex justify-between h-48">
+                            <div className="flex justify-between h-58">
                                 {/* LEFT */}
                                 <div className="w-1/3 "></div>
                                 {/* CENTER */}
@@ -225,41 +248,55 @@ const AboutPage = () => {
                                 </div>
                                 {/* RIGHT */}
                                 <div className="w-1/3 ">
-                                    {/* JOB TITLE */}
+                                    {/* PROJECT TITLE */}
                                     <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                                        Senior React Developer
+                                        Portofolio App
                                     </div>
-                                    {/* JOB DESC */}
+                                    {/* PROJECT DESC */}
                                     <div className="p-3 text-sm italic">
-                                        I spearheaded React-based application development,
-                                        leveraging advanced skills.{" "}
+                                        I used NextJS and Vercel to create and deploy my online portfolio,
+                                        transforming it into a convenient showcase of my skills.
+                                        This serves as a simplified way for recruiters to explore my work
+                                        and allows me the flexibility to update my "CV" even after submission.{" "}
                                     </div>
-                                    {/* JOB DATE */}
-                                    <div className="p-3 text-red-400 text-sm font-semibold">
-                                        2019 - 2024{" "}
-                                    </div>
-                                    {/* JOB COMPANY */}
-                                    <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                                        Microsoft
+                                    {/* BUTTONS */}
+                                    <div className="flex justify-between space-x-8">
+                                        {/* CODE */}
+                                        <button onClick={() => buttonClick('portofolioCode')} className="p-1 rounded bg-white text-sm font-semibold flex-grow">
+                                            Code
+                                        </button>
+                                        {/* LIVE */}
+                                        <button onClick={() => buttonClick('portofolioLive')} className="p-1 rounded bg-white text-sm font-semibold flex-grow">
+                                            Live
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             {/* EXPERIENCE LIST ITEM */}
-                            <div className="flex justify-between h-48">
+                            <div className="flex justify-between h-58">
                                 {/* LEFT */}
                                 <div className="w-1/3 ">
-                                    {/* JOB TITLE */}
+                                    {/* PROJECT TITLE */}
                                     <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                                        Freelancer{" "}
+                                        Online Shop{" "}
                                     </div>
-                                    {/* JOB DESC */}
+                                    {/* PROJECT DESC */}
                                     <div className="p-3 text-sm italic">
-                                        I provided web solutions, applying a range of technologies
-                                        to address client requirements.{" "}
+                                        Crafted an efficient online shopping platform using Java for the backend and React for the frontend.
+                                        Developed separate interfaces for customers to browse and shop seamlessly,
+                                        while providing store owners with a dedicated portal for product management,
+                                        reporting, and transaction tracking.{" "}
                                     </div>
-                                    {/* JOB DATE */}
-                                    <div className="p-3 text-red-400 text-sm font-semibold">
-                                        2010 - 2019{" "}
+                                    {/* BUTTONS */}
+                                    <div className="flex justify-between space-x-8">
+                                        {/* CODE */}
+                                        <button onClick={() => buttonClick('onlineShopCode')} className="p-1 rounded bg-white text-sm font-semibold flex-grow">
+                                            Code
+                                        </button>
+                                        {/* LIVE */}
+                                        <button onClick={() => buttonClick('onlineShopLive')} className="p-1 rounded bg-white text-sm font-semibold flex-grow">
+                                            Live
+                                        </button>
                                     </div>
                                 </div>
                                 {/* CENTER */}
