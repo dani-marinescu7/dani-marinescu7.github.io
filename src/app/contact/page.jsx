@@ -2,12 +2,11 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 const ContactPage = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-    const [userText, setUserText] = useState("");
+    const [userMessage, setUserMessage] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const text = "Say Hello";
 
@@ -17,29 +16,32 @@ const ContactPage = () => {
         setUserEmail(value);
     }
 
+    const userMessageChange = (value) => {
+        setUserMessage(value);
+    }
+
     const sendEmail = (e) => {
         e.preventDefault();
-        setError(false);
-        setSuccess(false);
-
-        const templateParams = {
-            user_message: userText,
-        };
+        console.log(userMessage);
+        console.log(userEmail);
 
         emailjs
-            .sendForm(
+            .send(
                 process.env.NEXT_PUBLIC_SERVICE_ID,
-                process.env.NEXT_PUBLIC_TEMPLATE_ID,
-                templateParams,
+                process.env.NEXT_PUBLIC_TEMPLATE_ID,{
+                from_name: userEmail,
+                message: userMessage,
+            },
                 process.env.NEXT_PUBLIC_PUBLIC_KEY
             )
             .then(
                 () => {
                     setSuccess(true);
-                    form.current.reset();
-                    setUserText("");
+                    setUserMessage("");
                 },
-                () => {
+            )
+            .catch(
+                (error) => {
                     setError(true);
                 }
             );
@@ -85,6 +87,8 @@ const ContactPage = () => {
                         rows={6}
                         className="bg-transparent border-b-2 border-b-black outline-none resize-none"
                         name="user_message"
+                        placeholder={"Please write your message here..."}
+                        onChange={(e) => userMessageChange(e.target.value)}
                     />
                     <textarea
                         className="bg-transparent border-b-2 border-b-black outline-none resize-none"
