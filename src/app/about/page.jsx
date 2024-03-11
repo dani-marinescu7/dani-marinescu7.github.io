@@ -45,7 +45,7 @@ const AboutPage = () => {
                 {/* TEXT CONTAINER */}
                 <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3 lg:pr-0 xl:w-1/2">
                     {/* BIOGRAPHY CONTAINER */}
-                    <div className="flex flex-col gap-12 justify-center min-w-[600px] lg:ml-[-100px]">
+                    <div className="flex flex-col gap-12 justify-center">
                         {/* BIOGRAPHY IMAGE */}
                         <Image
                             src={bioImage}
@@ -93,7 +93,7 @@ const AboutPage = () => {
                         </motion.svg>
                     </div>
                     {/* SKILLS CONTAINER */}
-                    <div className="flex flex-col gap-8 justify-center min-w-[600px] lg:ml-[-100px]" ref={skillRef}>
+                    <div className="flex flex-col gap-8 justify-center" ref={skillRef}>
                         {/* SKILL TITLE */}
                         <motion.h1
                             initial={{ x: "-300px" }}
@@ -178,7 +178,7 @@ const AboutPage = () => {
                     </div>
                     {/* EXPERIENCE CONTAINER */}
                     <div
-                        className="flex flex-col gap-12 justify-center pb-48 min-w-[600px] lg:ml-[-100px]"
+                        className="flex flex-col gap-12 justify-center pb-48"
                         ref={experienceRef}
                     >
                         {/* EXPERIENCE TITLE */}
